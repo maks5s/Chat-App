@@ -4,7 +4,7 @@ from app.database import async_session_maker
 from sqlalchemy.future import select
 
 
-class BaseDao:
+class BaseDAO:
     model = None
 
     @classmethod
