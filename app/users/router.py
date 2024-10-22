@@ -20,7 +20,7 @@ async def register_user(user_data: SUserRegister) -> dict:
 
     await UsersDAO.add(
         name=user_data.name,
-        email=user.email,
+        email=user_data.email,
         hashed_password=hashed_password
     )
 
