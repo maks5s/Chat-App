@@ -1,10 +1,20 @@
 from fastapi import APIRouter, Response
+from fastapi.requests import Request
+from fastapi.templating import Jinja2Templates
+from fastapi.responses import HTMLResponse
 from app.exceptions import UserAlreadyExistsException, PasswordMismatchException, IncorrectEmailOrPasswordException
 from app.users.auth import get_password_hash, authenticate_user, create_access_token
 from app.users.dao import UsersDAO
 from app.users.schemas import SUserRegister, SUserAuth
 
 router = APIRouter(prefix="/auth", tags=["Auth"])
+
+templates = Jinja2Templates(directory='app/templates')
+
+
+@router.get("/", response_class=HTMLResponse, summary="Auth page")
+async def get_categories(request: Request):
+    return templates.TemplateResponse("auth.html", {"request": request})
 
 
 @router.post("/register/")
