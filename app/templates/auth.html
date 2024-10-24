@@ -1,0 +1,29 @@
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chat Auth</title>
+</head>
+<body>
+    <div class="container">
+        <div class="tabs">
+            <div class="tab active" data-tab="login">Authorization</div>
+            <div class="tab" data-tab="register">Registration</div>
+        </div>
+        <div class="content">
+            <form id="loginForm" class="form active">
+                <input type="email" placeholder="Email" required>
+                <input type="password" placeholder="Password" required>
+                <button id="loginButton" type="submit">Log in</button>
+            </form>
+            <form id="registerForm" class="form">
+                <input type="email" placeholder="Email" required>
+                <input type="text" placeholder="Name" required>
+                <input type="password" placeholder="Password" required>
+                <input type="password" placeholder="Repeat password" required>
+                <button id="registerButton" type="submit">Sign up</button>
+            </form>
+        </div>
+    </div>
+</body>
+</html>
