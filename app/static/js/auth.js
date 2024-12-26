@@ -26,7 +26,20 @@ const sendRequest = async (url, data) => {
             alert(result.message || 'Operation done!');
             return result;
         } else {
-            alert(result.message || 'Query error!');
+            console.error("Error details:", result);
+
+            let errorMessage;
+            if (Array.isArray(result.detail)) {
+                errorMessage = result.detail
+                    .map(err => err.msg)
+                    .join("\n");
+            } else if (typeof result.detail === "string") {
+                errorMessage = result.detail;
+            } else {
+                errorMessage = result.message || "Query error!";
+            }
+
+            alert(errorMessage);
             return null;
         }
     } catch (error) {
@@ -37,7 +50,7 @@ const sendRequest = async (url, data) => {
 
 const handleFormSubmit = async (formType, url, fields) => {
     if (!validateForm(fields)) {
-        alert('Пожалуйста, заполните все поля.');
+        alert('Fill all the fields.');
         return;
     }
 
@@ -68,7 +81,7 @@ document.getElementById('registerButton').addEventListener('click', async (event
     const password_check = document.querySelectorAll('#registerForm input[type="password"]')[1].value;
 
     if (password !== password_check) {
-        alert('Пароли не совпадают.');
+        alert('Passwords do not match.');
         return;
     }
 
