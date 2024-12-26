@@ -11,3 +11,8 @@ class SUserRegister(BaseModel):
 class SUserAuth(BaseModel):
     email: EmailStr = Field(..., description="Email address")
     password: str = Field(..., min_length=5, max_length=50, description="Password 5 to 50 characters")
+
+
+class SUserRead(BaseModel):
+    id: int = Field(..., description="User id")
+    name: str = Field(..., min_length=3, max_length=50, description="Name 3 to 50 characters")
