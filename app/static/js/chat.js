@@ -110,9 +110,47 @@ function startMessagePolling(userId) {
     messagePollingInterval = setInterval(() => loadMessages(userId), 300);
 }
 
-document.querySelectorAll('.user-item').forEach(item => {
-    item.onclick = event => selectUser(item.getAttribute('data-user-id'), item.textContent, event);
-});
+function addUserClickListeners() {
+    document.querySelectorAll('.user-item').forEach(item => {
+        item.onclick = event => selectUser(item.getAttribute('data-user-id'), item.textContent, event);
+    });
+}
+
+addUserClickListeners();
+
+async function fetchUsers() {
+    try {
+        const response = await fetch('/auth/users');
+        const users = await response.json();
+        const userList = document.getElementById('userList');
+
+        userList.innerHTML = '';
+
+        const favoriteElement = document.createElement('div');
+        favoriteElement.classList.add('user-item');
+        favoriteElement.setAttribute('data-user-id', currentUserId);
+        favoriteElement.textContent = 'Saved';
+
+        userList.appendChild(favoriteElement);
+
+        users.forEach(user => {
+            if (user.id !== currentUserId) {
+                const userElement = document.createElement('div');
+                userElement.classList.add('user-item');
+                userElement.setAttribute('data-user-id', user.id);
+                userElement.textContent = user.name;
+                userList.appendChild(userElement);
+            }
+        });
+
+        addUserClickListeners();
+    } catch (error) {
+        console.error('Users list loading error:', error);
+    }
+}
+
+document.addEventListener('DOMContentLoaded', fetchUsers);
+setInterval(fetchUsers, 3000);
 
 document.getElementById('sendButton').onclick = sendMessage;
 
