@@ -37,7 +37,7 @@ const sendRequest = async (url, data) => {
 
 const handleFormSubmit = async (formType, url, fields) => {
     if (!validateForm(fields)) {
-        alert('Пожалуйста, заполните все поля.');
+        alert('Fill all the fields.');
         return;
     }
 
@@ -68,7 +68,7 @@ document.getElementById('registerButton').addEventListener('click', async (event
     const password_check = document.querySelectorAll('#registerForm input[type="password"]')[1].value;
 
     if (password !== password_check) {
-        alert('Пароли не совпадают.');
+        alert('Passwords do not match.');
         return;
     }
 
