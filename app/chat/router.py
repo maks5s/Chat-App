@@ -10,16 +10,9 @@ from app.chat.schemas import MessageRead, MessageCreate
 from app.users.dao import UsersDAO
 from app.users.dependencies import get_current_user
 from app.users.models import User
-from app.users.schemas import SUserRead
 
 router = APIRouter(prefix="/chat", tags=["Chat"])
 templates = Jinja2Templates(directory="app/templates")
-
-
-@router.get("/users", response_model=List[SUserRead])
-async def get_users():
-    users_all = await UsersDAO.find_all()
-    return [{'id': user.id, 'name': user.name} for user in users_all]
 
 
 @router.get("/", response_class=HTMLResponse, summary="Chat Page")
